@@ -139,7 +139,7 @@ pub async fn event_handler(provider: Arc<Provider<Ws>>, event_sender: Sender<Eve
                     }
                 }
                 Event::PendingTx(_) => {
-                    // not using pending tx
+                    //Add simulation to pending tx
                 }
             },
             Err(_) => {}

@@ -26,11 +26,10 @@ async fn main() -> Result<()> {
     let mut set = JoinSet::new();
 
     set.spawn(stream_new_blocks(provider.clone(), event_sender.clone()));
-    // we're not using the mempool data here, but uncomment it to use pending txs
-    // set.spawn(stream_pending_transactions(
-    //     provider.clone(),
-    //     event_sender.clone(),
-    // ));
+    set.spawn(stream_pending_transactions(
+        provider.clone(),
+        event_sender.clone(),
+    ));
     set.spawn(event_handler(provider.clone(), event_sender.clone()));
 
     while let Some(res) = set.join_next().await {
